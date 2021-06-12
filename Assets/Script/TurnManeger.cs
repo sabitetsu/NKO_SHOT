@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TurnManeger : MonoBehaviour
 {
-    // Start is called before the first frame update
+    int turn = 1; //myTurn == 1, enemyTurn == -1
     void Start()
     {
         

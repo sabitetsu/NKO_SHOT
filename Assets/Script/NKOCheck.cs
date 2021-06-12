@@ -23,6 +23,7 @@ public class NKOCheck : MonoBehaviour
 
     public void CheckDiceValue()
     {
+        diceValueList.Clear();
         GameObject[] dices = GameObject.FindGameObjectsWithTag("Dice");
         int diceNum = dices.Length;
         for (int i = 0; i < diceNum; i++)
