@@ -9,6 +9,7 @@ public class NKOManeger : MonoBehaviour
     GameObject LineObj;
 
     NKOCheck nkoCheck;
+    PlayerManeger pm;
     Rigidbody rb;
 
     const int MY_TURN = 1;
@@ -37,6 +38,7 @@ public class NKOManeger : MonoBehaviour
     {
         Application.targetFrameRate = 30;
         nkoCheck = GetComponent<NKOCheck>();
+        pm = GetComponent<PlayerManeger>();
     }
 
     void Update()
@@ -65,8 +67,10 @@ public class NKOManeger : MonoBehaviour
             dice = Instantiate(nkoDice, myPos, Random.rotation);
             rb = dice.GetComponent<Rigidbody>();
             rb.useGravity = false;
+            targetPos = new Vector3(0, 0, 0);
             TargetLine(myPos, new Vector3(0, 0, 0));
             state = MyState.SHOT;
+            pm.playerDices -= 1;
         }
     }
 
@@ -131,7 +135,6 @@ public class NKOManeger : MonoBehaviour
     void CheckEnd()
     {
         state = MyState.CHECK;
-        Debug.Log(state);
         checkEnd = false;
     }
 
@@ -142,8 +145,8 @@ public class NKOManeger : MonoBehaviour
         {
             return;
         }
-        nkoCheck.CheckWord();
-        Invoke("ChangeTurn", 5);
+        pm.enemyHP -= nkoCheck.CheckWord();
+        Invoke("ChangeTurn", 2);
     }
 
     void ChangeTurn()

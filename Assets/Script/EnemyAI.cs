@@ -8,6 +8,7 @@ public class EnemyAI : MonoBehaviour
     GameObject dice;
     NKOManeger nkoMng;
     NKOCheck nkoCheck;
+    PlayerManeger pm;
     Rigidbody rb;
 
     Vector3 enePos = new Vector3(0, 10, -15);
@@ -26,12 +27,17 @@ public class EnemyAI : MonoBehaviour
     {
         nkoMng = GetComponent<NKOManeger>();
         nkoCheck = GetComponent<NKOCheck>();
+        pm = GetComponent<PlayerManeger>();
         rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(pm.battleEnd == true)
+        {
+            return;
+        }
         if(nkoMng.state == NKOManeger.MyState.ENEMY && starting == false)
         {
             starting = true;
@@ -50,11 +56,12 @@ public class EnemyAI : MonoBehaviour
         rb = dice.GetComponent<Rigidbody>();
         rb.useGravity = false;
         Invoke("AIShot", 1);//ランダム秒数にする
+        pm.enemyDices -= 1;
     }
 
     void AIShot()
     {
-        Vector3 shotPower = new Vector3(0, -50, 50);
+        Vector3 shotPower = new Vector3(0, -15, 15);
         rb.AddForce(shotPower, ForceMode.Impulse);
         rb.useGravity = true;
         Invoke("AIMoveCheck", 2);
@@ -76,7 +83,7 @@ public class EnemyAI : MonoBehaviour
 
     void AIWordCheck()
     {
-        nkoCheck.CheckWord();
+        pm.playerHP  -= nkoCheck.CheckWord();
         nkoMng.state = NKOManeger.MyState.SET;
         starting = false;
     }

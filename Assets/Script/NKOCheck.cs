@@ -86,7 +86,7 @@ public class NKOCheck : MonoBehaviour
     }
 
     //CHECKボタンで発動
-    public void CheckWord()
+    public int CheckWord()
     {
         // 1  2  3  4  5  6
         // お う ん こ ま ち
@@ -99,16 +99,16 @@ public class NKOCheck : MonoBehaviour
 
         if (sums[2] > 0 && sums[3] > 0 && sums[4] > 0)
         {
-            wordList.Add("UNKO\n");
-            damage += 1;
+            wordList.Add("UNKO +100\n");
+            damage += 100;
             deleteNums[2] = 1;
             deleteNums[3] = 1;
             deleteNums[4] = 1;
         }
         if (sums[2] > 0 && sums[3] > 0 && sums[6] > 0)
         {
-            wordList.Add("UNCHI\n");
-            damage += 1;
+            wordList.Add("UNCHI +100\n");
+            damage += 100;
             deleteNums[2] = 1;
             deleteNums[3] = 1;
             deleteNums[6] = 1;
@@ -116,8 +116,8 @@ public class NKOCheck : MonoBehaviour
 
         if (sums[1] > 0 && sums[5] > 0 && sums[3] > 0 && sums[4] > 0)
         {
-            wordList.Add("OMANKO\n");
-            damage += 2;
+            wordList.Add("OMANKO +300\n");
+            damage += 300;
             deleteNums[1] = 1;
             deleteNums[5] = 1;
             deleteNums[3] = 1;
@@ -125,8 +125,8 @@ public class NKOCheck : MonoBehaviour
         }
         else if (sums[5] > 0 && sums[3] > 0 && sums[4] > 0)
         {
-            wordList.Add("MANKO\n");
-            damage += 1;
+            wordList.Add("MANKO +100\n");
+            damage += 100;
             deleteNums[5] = 1;
             deleteNums[3] = 1;
             deleteNums[4] = 1;
@@ -134,8 +134,8 @@ public class NKOCheck : MonoBehaviour
 
         if (sums[6] > 0 && sums[3] > 0 && sums[4] > 0)
         {
-            wordList.Add("CHINKO\n");
-            damage += 1;
+            wordList.Add("CHINKO +100\n");
+            damage += 100;
             deleteNums[6] = 1;
             deleteNums[3] = 1;
             deleteNums[4] = 1;
@@ -143,16 +143,16 @@ public class NKOCheck : MonoBehaviour
         
         if (sums[1] > 0 && sums[6] > 1 && sums[3] > 1)
         {
-            wordList.Add("OCHINCHIN\n");
-            damage += 3;
+            wordList.Add("OCHINCHIN +500\n");
+            damage += 500;
             deleteNums[1] = 1;
             deleteNums[6] = 2;
             deleteNums[3] = 2;
         }
         else if (sums[6] > 1 && sums[3] > 1)
         {
-            wordList.Add("CHINCHIN\n");
-            damage += 2;
+            wordList.Add("CHINCHIN +300\n");
+            damage += 300;
             deleteNums[6] = 2;
             deleteNums[3] = 2;
         }
@@ -162,7 +162,7 @@ public class NKOCheck : MonoBehaviour
         Invoke("DeleteNko", 3);
 
         //コンボ表示処理
-        if (wordList != null)
+        if (wordList.Count > 0)
         {
             Panel.SetActive(true);
             wordText.text = "";
@@ -170,8 +170,10 @@ public class NKOCheck : MonoBehaviour
             {
                 wordText.text += wordList[i];
             }
-            Invoke("PanelDelete", 5);
+            wordText.text += damage.ToString() + "ダメージ！";
+            Invoke("PanelDelete", 3);
         }
+        return damage;
     }
 
     //Shot後呼び出される
