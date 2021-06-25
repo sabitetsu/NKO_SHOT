@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerManeger : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class PlayerManeger : MonoBehaviour
     public int enemyDices = 15;
 
     public bool battleEnd = false;
+    bool playerWin = true;
 
     [SerializeField] Text playerText;
     [SerializeField] Text enemyText;
@@ -37,23 +39,32 @@ public class PlayerManeger : MonoBehaviour
         //最期の攻撃でしとめれたら勝ちなのでこの順で判定
         if (playerHP <= 0)
         {
-            EndBattle(false);
+            playerWin = false;
+            Invoke("EndBattle",3);
+            battleEnd = true;
+            // EndBattle(false);
         }
         else if (enemyHP <= 0)
         {
-            EndBattle(true);
+            playerWin = true;
+            Invoke("EndBattle", 3);
+            battleEnd = true;
         }
         else if (playerDices < 0)
         {
-            EndBattle(false);
+            playerWin = false;
+            Invoke("EndBattle", 3);
+            battleEnd = true;
         }
         else if (enemyDices < 0)
         {
-            EndBattle(true);
+            playerWin = true;
+            Invoke("EndBattle", 3);
+            battleEnd = true;
         }
     }
 
-    void EndBattle(bool playerWin)
+    void EndBattle()
     {
         if (playerWin)
         {
@@ -67,12 +78,17 @@ public class PlayerManeger : MonoBehaviour
             centerText.text = "PLAYER LOSE";
             Debug.Log("PLAYER LOSE");
         }
-        battleEnd = true;
+        Invoke("ReStart", 5);
+    }
+
+    void ReStart()
+    {
+        SceneManager.LoadScene("Gamescene");
     }
 
     void StateText()
     {
         playerText.text = "HP　   :" + playerHP.ToString() + "\n手持ち:" + playerDices.ToString();
-        enemyText.text = "HP　   :" + enemyHP.ToString() + "\n手持ち:" + enemyDices.ToString();
+        enemyText.text = "HP:" + enemyHP.ToString() + "\n手持ち:" + enemyDices.ToString()+ "　";
     }
 }

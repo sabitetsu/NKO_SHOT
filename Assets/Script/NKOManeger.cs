@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NKOManeger : MonoBehaviour
 {
     [SerializeField] GameObject nkoDice;
     GameObject dice;
     GameObject LineObj;
+    [SerializeField] Button setButton;
+    [SerializeField] Button shotButton;
+    [SerializeField] Button checkButton;
 
     NKOCheck nkoCheck;
     PlayerManeger pm;
@@ -56,6 +60,34 @@ public class NKOManeger : MonoBehaviour
             {
                 CheckEnd();
             }
+        }
+        switch (state)
+        {
+            case MyState.SET:
+                setButton.interactable = true;
+                shotButton.interactable = false;
+                checkButton.interactable = false;
+                break;
+            case MyState.SHOT:
+                setButton.interactable = false;
+                shotButton.interactable = true;
+                checkButton.interactable = false;
+                break;
+            case MyState.WAIT:
+                setButton.interactable = false;
+                shotButton.interactable = false;
+                checkButton.interactable = false;
+                break;
+            case MyState.CHECK:
+                setButton.interactable = true;
+                shotButton.interactable = false;
+                checkButton.interactable = true;
+                break;
+            case MyState.ENEMY:
+                setButton.interactable = false;
+                shotButton.interactable = false;
+                checkButton.interactable = false;
+                break;
         }
     }
 

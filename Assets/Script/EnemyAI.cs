@@ -61,7 +61,7 @@ public class EnemyAI : MonoBehaviour
 
     void AIShot()
     {
-        Vector3 shotPower = new Vector3(0, -15, 15);
+        Vector3 shotPower = new Vector3(0, -30, 30);
         rb.AddForce(shotPower, ForceMode.Impulse);
         rb.useGravity = true;
         Invoke("AIMoveCheck", 2);
