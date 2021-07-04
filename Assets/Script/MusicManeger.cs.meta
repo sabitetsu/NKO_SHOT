@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 707f9097495ee474baa718c866f32e61
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - start: {fileID: 8300000, guid: 259524a974d7c744b9c7c543c5179f86, type: 3}
+  - spawn: {fileID: 8300000, guid: bbde30b9ebd8efa448bff2e138474aa2, type: 3}
+  - mark: {fileID: 8300000, guid: 235f07c7441957647a66e39694408fe9, type: 3}
+  - shot: {fileID: 8300000, guid: 5167836f4774e8e409f431509dd36a55, type: 3}
+  - damage: {fileID: 8300000, guid: e179a10eecafd6a488869bfdf60f7399, type: 3}
+  - delete: {fileID: 8300000, guid: 6d72ad1a94a77a24d90dcfb0946fd622, type: 3}
+  - reroll: {fileID: 8300000, guid: f5ea08868e936434c9c4f5217f11e56d, type: 3}
+  - conbo: {fileID: 8300000, guid: 4e7c75197806e8f4081a04c56a2a8f29, type: 3}
+  - winner: {fileID: 8300000, guid: 1d8f86856cf71094cbf3551997cdc1bb, type: 3}
+  - lose: {fileID: 8300000, guid: a8815ab8a34b1684cb46054d83634922, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

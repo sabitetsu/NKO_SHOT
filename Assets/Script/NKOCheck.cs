@@ -8,6 +8,7 @@ public class NKOCheck : MonoBehaviour
     [SerializeField] GameObject Panel;
     [SerializeField] Text wordText;
     NKOManeger nkoMng;
+    MusicManeger musicManeger;
     GameObject[] dices;
     int diceNum;
 
@@ -23,6 +24,7 @@ public class NKOCheck : MonoBehaviour
     void Start()
     {
         nkoMng = GetComponent<NKOManeger>();
+        musicManeger = GetComponent<MusicManeger>();
     }
 
     void Update()
@@ -164,6 +166,7 @@ public class NKOCheck : MonoBehaviour
         //コンボ表示処理
         if (wordList.Count > 0)
         {
+            musicManeger.ConboSound();
             Panel.SetActive(true);
             wordText.text = "";
             for (int i = 0; i < wordList.Count; i++)
@@ -234,6 +237,7 @@ public class NKOCheck : MonoBehaviour
 
     void ReRoll()
     {
+        musicManeger.RerollSound();
         int zeroDiceNum = zeroDiceList.Count; //エラーダイスの数
         for (int i = 0; i < zeroDiceNum; i++)
         {

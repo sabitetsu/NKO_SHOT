@@ -18,9 +18,12 @@ public class PlayerManeger : MonoBehaviour
     [SerializeField] Text enemyText;
     [SerializeField] GameObject centerPanel;
     [SerializeField] Text centerText;
+
+    MusicManeger musicManeger;
+
     void Start()
     {
-        
+        musicManeger = GetComponent<MusicManeger>();
     }
 
     // Update is called once per frame
@@ -68,12 +71,14 @@ public class PlayerManeger : MonoBehaviour
     {
         if (playerWin)
         {
+            musicManeger.WineerSound();
             centerPanel.SetActive(true);
             centerText.text = "PLAYER WIN";
             Debug.Log("PLAYER WIN");
         }
         else
         {
+            musicManeger.LoseSound();
             centerPanel.SetActive(true);
             centerText.text = "PLAYER LOSE";
             Debug.Log("PLAYER LOSE");

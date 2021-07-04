@@ -10,6 +10,7 @@ public class EnemyAI : MonoBehaviour
     NKOCheck nkoCheck;
     PlayerManeger pm;
     Rigidbody rb;
+    MusicManeger musicManeger;
 
     Vector3 enePos = new Vector3(0, 10, -15);
 
@@ -29,6 +30,7 @@ public class EnemyAI : MonoBehaviour
         nkoCheck = GetComponent<NKOCheck>();
         pm = GetComponent<PlayerManeger>();
         rb = GetComponent<Rigidbody>();
+        musicManeger = GetComponent<MusicManeger>();
     }
 
     // Update is called once per frame
@@ -52,6 +54,7 @@ public class EnemyAI : MonoBehaviour
     }
     void AISet()
     {
+        musicManeger.SpawnSound();
         dice = Instantiate(nkoDice, enePos, Random.rotation);
         rb = dice.GetComponent<Rigidbody>();
         rb.useGravity = false;
@@ -61,6 +64,7 @@ public class EnemyAI : MonoBehaviour
 
     void AIShot()
     {
+        musicManeger.ShotSound();
         Vector3 shotPower = new Vector3(0, -30, 30);
         rb.AddForce(shotPower, ForceMode.Impulse);
         rb.useGravity = true;

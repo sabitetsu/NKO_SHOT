@@ -15,6 +15,7 @@ public class NKOManeger : MonoBehaviour
     NKOCheck nkoCheck;
     PlayerManeger pm;
     Rigidbody rb;
+    MusicManeger musicManeger;
 
     const int MY_TURN = 1;
     const int ENEMY_TURN = -1;
@@ -43,6 +44,7 @@ public class NKOManeger : MonoBehaviour
         Application.targetFrameRate = 30;
         nkoCheck = GetComponent<NKOCheck>();
         pm = GetComponent<PlayerManeger>();
+        musicManeger = GetComponent<MusicManeger>();
     }
 
     void Update()
@@ -96,6 +98,7 @@ public class NKOManeger : MonoBehaviour
     {
         if(state == MyState.SET || state == MyState.CHECK)
         {
+            musicManeger.SpawnSound();
             dice = Instantiate(nkoDice, myPos, Random.rotation);
             rb = dice.GetComponent<Rigidbody>();
             rb.useGravity = false;
@@ -108,6 +111,7 @@ public class NKOManeger : MonoBehaviour
 
     void TargetNKO()
     {
+        musicManeger.MarkSound();
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 50.0f))
@@ -147,6 +151,7 @@ public class NKOManeger : MonoBehaviour
     {
         if (state == MyState.SHOT)
         {
+            musicManeger.ShotSound();
             targetPos.y = -10;
             targetPos.z -= 10 * turn;
             Vector3 shotPower = Vector3.Scale(targetPos, powerVector);
@@ -178,6 +183,7 @@ public class NKOManeger : MonoBehaviour
             return;
         }
         pm.enemyHP -= nkoCheck.CheckWord();
+        state = MyState.WAIT;
         Invoke("ChangeTurn", 2);
     }
 
