@@ -20,6 +20,8 @@ public class NKOCheck : MonoBehaviour
 
     int errorCount = 0;
 
+    bool machiko = false;
+    [SerializeField] GameObject machikoImage;
 
     void Start()
     {
@@ -158,6 +160,16 @@ public class NKOCheck : MonoBehaviour
             deleteNums[6] = 2;
             deleteNums[3] = 2;
         }
+
+        //if (damage == 0)
+        //{
+            if (sums[5] > 0 && sums[6] > 0 && sums[4] > 0)
+            {
+                wordList.Add("まちこ\n");
+                machiko = true;
+            }
+        //}
+
         Debug.Log("ダメージ："+damage);
 
         //使った物消す処理
@@ -173,7 +185,16 @@ public class NKOCheck : MonoBehaviour
             {
                 wordText.text += wordList[i];
             }
-            wordText.text += damage.ToString() + "ダメージ！";
+
+            if (machiko == true)
+            {
+                machikoImage.SetActive(true);
+            }
+            else
+            {
+                wordText.text += damage.ToString() + "ダメージ！";
+            }
+
             Invoke("PanelDelete", 3);
         }
         return damage;
@@ -250,6 +271,11 @@ public class NKOCheck : MonoBehaviour
 
     void PanelDelete()
     {
+        if(machiko == true)
+        {
+            machikoImage.SetActive(false);
+            machiko = false;
+        }
         Panel.SetActive(false);
     }
 
